@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Dto;
+using System;
 using System.Collections.Generic;
 
 namespace ParserService
@@ -18,7 +19,7 @@ namespace ParserService
             ValidationMessages = new List<string>();
         }
 
-        public abstract IEnumerable<Transaction> Parse();
+        public abstract List<TransactionDto> Parse();
         
         protected void LogInvalidRecord(string record, Exception ex = null)
         {
@@ -36,6 +37,10 @@ namespace ParserService
                 }
 
                 ValidationMessages.Add($"Error: {message}. Raw record: {record}");
+            }
+            else
+            {
+                ValidationMessages.Add($"Invalid record: {record}");
             }
 
             IsParseSuccess = false;

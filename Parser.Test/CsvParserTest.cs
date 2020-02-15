@@ -42,6 +42,7 @@ namespace Parser.Test
             parser.Parse();
 
             Assert.IsFalse(parser.IsParseSuccess);
+            Assert.IsTrue(parser.ValidationMessages.Count > 0);
         }
 
         [TestMethod]

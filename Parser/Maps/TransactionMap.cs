@@ -7,7 +7,7 @@ namespace ParserService
     /// <summary>
     /// Maps and validates data.
     /// </summary>
-    public sealed class TransactionMap : ClassMap<Transaction>
+    public sealed class TransactionMap : ClassMap<CsvTransaction>
     {
         public TransactionMap()
         {

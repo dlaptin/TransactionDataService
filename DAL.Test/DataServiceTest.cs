@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DAL.Test
@@ -8,7 +9,7 @@ namespace DAL.Test
     public class DataServiceTest
     {
         // note: use test db
-        private const string connString = @"Data Source=MEGREZ;Initial Catalog=TransactionDB;User ID=sa;Password=123asdQ!;
+        private const string connString = @"Data Source=localhost;Initial Catalog=TransactionDB;User ID=sa;Password=123asdQ!;
 Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         static DateTime dt1 = new DateTime(2019, 02, 20, 12, 33, 16);
@@ -20,9 +21,9 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
             var service = new DataService(connString);
 
-            service.Add(new List<Transaction>()
+            service.Add(new List<TransactionDto>()
             {
-                new Transaction()
+                new TransactionDto()
                 {
                     Id = "foo1",
                     Amount = 11,
@@ -30,7 +31,7 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                     Date = dt1,
                     Status = 0
                 },
-                new Transaction()
+                new TransactionDto()
                 {
                     Id = "foo2",
                     Amount = 22,
@@ -38,7 +39,7 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                     Date = dt1.AddDays(-10),
                     Status = 1
                 },
-                new Transaction()
+                new TransactionDto()
                 {
                     Id = "foo3",
                     Amount = 33,

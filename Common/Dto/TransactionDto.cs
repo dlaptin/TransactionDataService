@@ -1,23 +1,17 @@
-﻿using CsvHelper.Configuration.Attributes;
-using System;
+﻿using System;
 
-namespace ParserService
+namespace Common.Dto
 {
-    public class Transaction
+    public class TransactionDto
     {
-        [Index(0)]
         public string Id { get; set; }
 
-        [Index(1)]
         public decimal Amount { get; set; }
 
-        [Index(2)]
         public string Code { get; set; }
 
-        [Index(3)]
         public DateTime Date { get; set; }
 
-        [Index(4)]
         public int Status { get; set; }
     }
 }

@@ -23,5 +23,15 @@ namespace Parser.Test
             Assert.AreEqual("USD", item.Code);
             Assert.AreEqual(2, item.Status);
         }
+
+        [TestMethod]
+        public void InvalidDateFormat_ParseUnsuccessfull()
+        {
+            var parser = new XmlParser("..\\..\\TestData\\InvalidDateFormat.xml");
+
+            parser.Parse();
+
+            Assert.IsTrue(parser.ValidationMessages.Count > 0);
+        }
     }
 }

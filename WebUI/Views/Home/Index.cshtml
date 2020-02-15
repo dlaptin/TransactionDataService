@@ -1,0 +1,57 @@
+﻿@model WebUI.Models.MainModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            <h4>Upload xml of csv file with transaction data</h4>
+            <input type="file" name="file" id="file" />
+            <input type="submit" />
+        </form>
+    </div>
+    <div class="col-md-12">
+        @if (!string.IsNullOrEmpty(Model.ValidationMessages))
+        {
+            <text>
+                <h4>Validation messages:</h4>
+                <pre>@Html.Raw(Model.ValidationMessages)</pre>
+            </text>
+        }
+    </div>
+    <div class="col-md-12">
+        <h4>Search</h4>
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("GetByCode", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(model => model.Code)<br/>
+            <button type="submit">Search by Code</button>
+        }
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("GetByDateRange", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(model => model.StartDate)
+            @Html.TextBoxFor(model => model.EndDate)<br />
+            <button type="submit">Search by date range</button>
+        }
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("GetByStatus", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(model => model.Status)<br />
+            <button type="submit">Search by Status (A, R, D)</button>
+        }
+    </div>
+    <div class="col-md-12">
+        @if (!string.IsNullOrEmpty(Model.Transactions))
+        {
+            <text>
+                <h4>Transactions:</h4>
+                <pre>@Html.Raw(Model.Transactions)</pre>
+            </text>
+        }
+    </div>
+</div>

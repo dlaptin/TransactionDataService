@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Common.Dto;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -9,25 +11,25 @@ namespace ParserService
     {
         public XmlParser(string fileName) : base(fileName) { }
 
-        public override IEnumerable<Transaction> Parse()
+        public override List<TransactionDto> Parse()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Transactions));
-            Transactions transactions;
-            
-            using (FileStream fs = File.OpenRead(FileName))
+            Transactions transactions = null;
+
+            try
             {
-                transactions = (Transactions)serializer.Deserialize(fs);
+                using (FileStream fs = File.OpenRead(FileName))
+                {
+                    transactions = (Transactions)serializer.Deserialize(fs);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                // todo: implement validation for Transaction Id and Currency Code
+                LogInvalidRecord(null, ex);
             }
 
-            return from item in transactions.Transaction
-                   select new Transaction
-                   {
-                       Id = item.id,
-                       Date = item.TransactionDate,
-                       Amount = item.PaymentDetails.Amount,
-                       Code = item.PaymentDetails.CurrencyCode,
-                       Status = (int)item.Status
-                   };
+            return transactions?.Transaction.Select(t => t.ToDto()).ToList();
         }
     }
 }

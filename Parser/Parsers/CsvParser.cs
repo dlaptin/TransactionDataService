@@ -1,7 +1,9 @@
-﻿using CsvHelper;
+﻿using Common.Dto;
+using CsvHelper;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace ParserService
 {
@@ -9,7 +11,7 @@ namespace ParserService
     {
         public CsvParser(string fileName) : base(fileName) { }
 
-        public override IEnumerable<Transaction> Parse()
+        public override List<TransactionDto> Parse()
         {
             IsParseSuccess = true;
 
@@ -19,13 +21,13 @@ namespace ParserService
                 csv.Configuration.HasHeaderRecord = false;
                 csv.Configuration.RegisterClassMap<TransactionMap>();
 
-                var result = new List<Transaction>();
+                var result = new List<CsvTransaction>();
                 var isRecordBad = false;
 
                 csv.Configuration.BadDataFound = context =>
                 {
                     isRecordBad = true;
-                    LogInvalidRecord(context.RawRecord);
+                    LogInvalidRecord(context.RawRecord.Trim());
                 };
                 while (csv.Read())
                 {
@@ -33,19 +35,19 @@ namespace ParserService
                     {
                         try
                         {
-                            var record = csv.GetRecord<Transaction>();
+                            var record = csv.GetRecord<CsvTransaction>();
                             result.Add(record);
                         }
                         catch (CsvHelperException ex)
                         {
-                            LogInvalidRecord(csv.Context.RawRecord, ex);
+                            LogInvalidRecord(csv.Context.RawRecord.Trim(), ex);
                         }
                     }
 
                     isRecordBad = false;
                 }
 
-                return result;
+                return result.Select(t => t.ToDto()).ToList();
             }
         }
     }
