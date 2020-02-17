@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DAL
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private readonly string connectionString;
 

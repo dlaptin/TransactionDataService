@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.Test", "DAL.Test\DAL.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{77F012C6-9FFC-454D-BB68-C2AAB03DB3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI.Tests", "WebUI.Tests\WebUI.Tests.csproj", "{ED5E84BB-BC01-4E2D-B2B5-98A69F7B664A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{77F012C6-9FFC-454D-BB68-C2AAB03DB3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77F012C6-9FFC-454D-BB68-C2AAB03DB3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77F012C6-9FFC-454D-BB68-C2AAB03DB3F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED5E84BB-BC01-4E2D-B2B5-98A69F7B664A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED5E84BB-BC01-4E2D-B2B5-98A69F7B664A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED5E84BB-BC01-4E2D-B2B5-98A69F7B664A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED5E84BB-BC01-4E2D-B2B5-98A69F7B664A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

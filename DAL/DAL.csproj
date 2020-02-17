@@ -45,6 +45,7 @@
     <Compile Include="Converter.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="DataService.cs" />
+    <Compile Include="IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,21 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using WebUI.Models;
 
 namespace WebUI.Utils
 {
     public static class Converter
     {
-        public static string ToUIString(this TransactionDto dto)
+        public static string ToUIString(this List<TransactionDto> transactions)
         {
-            return new Transaction
+            var result = StringResources.NoResultsString;
+
+            if (transactions.Count() > 0)
             {
-                Id = dto.Id,
-                Payment = $"{dto.Amount.ToString()} {dto.Code}",
-                Status = (Status)dto.Status
-            }.ToString();
+                var items = transactions.Select(transaction => new Transaction
+                {
+                    Id = transaction.Id,
+                    Payment = $"{transaction.Amount.ToString()} {transaction.Code}",
+                    Status = (Status)transaction.Status
+                }.ToString());
+
+                result = string.Join(Environment.NewLine, items);
+            }
+
+            return result;
         }
     }
 }

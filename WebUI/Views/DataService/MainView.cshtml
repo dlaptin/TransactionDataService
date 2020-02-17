@@ -24,14 +24,14 @@
         <h4>Search</h4>
     </div>
     <div class="col-md-4">
-        @using (Html.BeginForm("GetByCode", "Home", FormMethod.Post))
+        @using (Html.BeginForm("GetByCode", "DataService", FormMethod.Post))
         {
             @Html.TextBoxFor(model => model.Code)<br/>
             <button type="submit">Search by Code</button>
         }
     </div>
     <div class="col-md-4">
-        @using (Html.BeginForm("GetByDateRange", "Home", FormMethod.Post))
+        @using (Html.BeginForm("GetByDateRange", "DataService", FormMethod.Post))
         {
             @Html.TextBoxFor(model => model.StartDate)
             @Html.TextBoxFor(model => model.EndDate)<br />
@@ -39,7 +39,7 @@
         }
     </div>
     <div class="col-md-4">
-        @using (Html.BeginForm("GetByStatus", "Home", FormMethod.Post))
+        @using (Html.BeginForm("GetByStatus", "DataService", FormMethod.Post))
         {
             @Html.TextBoxFor(model => model.Status)<br />
             <button type="submit">Search by Status (A, R, D)</button>
