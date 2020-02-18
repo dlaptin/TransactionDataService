@@ -19,13 +19,16 @@ namespace WebUI.Controllers
             this.dataService = dataService;
         }
 
+        [Route]
         public ActionResult MainView()
         {
             return View(new MainModel());
         }
 
+
+        [Route("UploadFile")]
         [HttpPost]
-        public ActionResult MainView(HttpPostedFileBase file)
+        public ActionResult UploadFile(HttpPostedFileBase file)
         {
             var validationMessages = new List<string>();
 
@@ -48,31 +51,45 @@ namespace WebUI.Controllers
                 ValidationMessages = string.Join(Environment.NewLine, validationMessages)
             };
 
-            return View(model);
+            return View("MainView", model);
         }
 
+        [Route("GetByCode")]
         [HttpPost]
-        public ActionResult GetByCode(MainModel model)
+        public ActionResult GetByCode(string code)
         {
-            model.Transactions = dataService.Get(model.Code).ToUIString();
+            var model = new MainModel
+            {
+                Transactions = dataService.Get(code).ToUIString()
+            };
 
             return View("MainView", model);
         }
 
+        [Route("GetByDateRange")]
         [HttpPost]
-        public ActionResult GetByDateRange(MainModel model)
+        public ActionResult GetByDateRange(DateTime startDate, DateTime endDate)
         {
-            model.Transactions = dataService.Get(model.StartDate.Value, model.EndDate.Value).ToUIString();
-
+            var model = new MainModel
+            {
+                Transactions = dataService.Get(startDate, endDate).ToUIString()
+            };
+            
             return View("MainView", model);
         }
 
+        [Route("GetByStatus")]
         [HttpPost]
-        public ActionResult GetByStatus(MainModel model)
+        public ActionResult GetByStatus(Status? status)
         {
-            model.Transactions = model.Status.HasValue 
-                ? dataService.Get((int)model.Status).ToUIString()
+            var transactions = status.HasValue
+                ? dataService.Get((int)status).ToUIString()
                 : StringResources.NoResultsString;
+
+            var model = new MainModel
+            {
+                Transactions = transactions
+            };
 
             return View("MainView", model);
         }
