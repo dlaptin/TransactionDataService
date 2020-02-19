@@ -24,22 +24,25 @@ namespace WebUI.Controllers
         {
             return View(new MainModel());
         }
-
-
+        
         [Route("UploadFile")]
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
             var validationMessages = new List<string>();
 
-            if (file.ContentLength > maxFileSize)
+            if (file == null)
+            {
+                validationMessages.Add(StringResources.NoFileSelected);
+            }            
+            else if (file.ContentLength > maxFileSize)
             {
                 validationMessages.Add("Max file size is 1MB.");
             }
-            else if (file.ContentLength > 0)
+            else
             {
                 var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                var path = Path.Combine(Server.MapPath("~/"), fileName);
                 file.SaveAs(path);
 
                 validationMessages = new ParserService.ParserService().ProcessFile(path);
@@ -55,7 +58,6 @@ namespace WebUI.Controllers
         }
 
         [Route("GetByCode")]
-        [HttpPost]
         public ActionResult GetByCode(string code)
         {
             var model = new MainModel
@@ -67,7 +69,6 @@ namespace WebUI.Controllers
         }
 
         [Route("GetByDateRange")]
-        [HttpPost]
         public ActionResult GetByDateRange(DateTime startDate, DateTime endDate)
         {
             var model = new MainModel
@@ -79,12 +80,11 @@ namespace WebUI.Controllers
         }
 
         [Route("GetByStatus")]
-        [HttpPost]
         public ActionResult GetByStatus(Status? status)
         {
             var transactions = status.HasValue
                 ? dataService.Get((int)status).ToUIString()
-                : StringResources.NoResultsString;
+                : StringResources.NoResults;
 
             var model = new MainModel
             {

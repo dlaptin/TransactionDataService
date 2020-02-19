@@ -10,7 +10,7 @@ namespace WebUI.Utils
     {
         public static string ToUIString(this List<TransactionDto> transactions)
         {
-            var result = StringResources.NoResultsString;
+            var result = StringResources.NoResults;
 
             if (transactions.Count() > 0)
             {
